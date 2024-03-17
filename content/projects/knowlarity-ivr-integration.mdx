@@ -1,0 +1,44 @@
+---
+title: Knowlarity IVR Integration
+description: A basic IVR Integration that has the following features. Click to call on any number from any agent. Inbound call pop up handled using frappe.enqueue [consume stream api] and frappe relatime [show users the popup].
+date: "2023-06-26"
+published: true
+url: https://labs.extensionerp.com/sameer/knowlarity_ivr_integration
+repository: extension-technologies/knowlarity_ivr_integration
+---
+
+
+<a href="https://extensionerp.com"><img src="https://sgp1.digitaloceanspaces.com/cdn.extension/Extension-ERP-06-32.png" align="right" /></a>
+
+# Knowlarity IVR Integration
+A basic IVR Integration that has the following features:
+1. Click to call on any number from any agent.
+2. Inbound call pop up handled using frappe.enqueue [consume stream api] and frappe relatime [show users the popup].
+
+## Basic Flow
+Most of the integration methods are defined are defined in `integration/integration.py`
+### Call Popup
+- An hourly scheduler that checks for the current running job and restart it if available
+- `inbound_handler` is the main function that streams the api for any response and calls `stream_data_handler`
+- `stream_data_handler` call `publish_realtime` to show users the popup
+
+### Click to Call
+Check click_to_call function for working.
+
+## Installation & Usage
+- get-app: `bench get-app https://labs.extensionerp.com/sameer/knowlarity_ivr_integration.git`
+- install-app: `bench install-app knowlarity_ivr_integration`
+- Enter information in `Knowlarity Settings` doctype.
+- start the inbound_handler job: `bench execute knowlarity_ivr_integration.integrations.integration.inbound_scheduler`
+
+## Limitations
+- After executing the inbound_handler the background worker job is started, so you can't perform a restart or it will fail. *Haven't found any way, one can search for it*. 
+
+## References
+
+> 1. [Knowlarity apis](https://developer.knowlarity.com/api-reference#api_ref_link13)
+> 2. [frappe scheduler docs](https://frappeframework.com/docs/v14/user/en/api/background_jobs)
+
+## License
+
+MIT
