@@ -1,12 +1,10 @@
 import type { BookShelf } from "@/.contentlayer/generated";
-import { Eye } from "lucide-react";
 
 type Props = {
   book: BookShelf;
-  views: number;
 };
 
-export const Article: React.FC<Props> = ({ book, views }) => {
+export const Article: React.FC<Props> = ({ book }) => {
   return (
     <article className="p-4 md:p-8">
       <div className="flex justify-between gap-2 items-center">
@@ -20,10 +18,6 @@ export const Article: React.FC<Props> = ({ book, views }) => {
           ) : (
             <span>SOON</span>
           )}
-        </span>
-        <span className="text-zinc-500 text-xs  flex items-center gap-1">
-          <Eye className="w-4 h-4" />{" "}
-          {Intl.NumberFormat("en-US", { notation: "compact" }).format(views)}
         </span>
       </div>
       <h2 className="z-20 text-xl font-medium duration-1000 lg:text-3xl text-zinc-200 group-hover:text-white font-display">
